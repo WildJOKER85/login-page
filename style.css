@@ -1,0 +1,48 @@
+/* MAIN COLOR #c9daea; */
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 10px;
+}
+
+.form-container {
+  background-color: #c9daea;
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+}
+
+body {
+  font-family: 'Noto Sans', sans-serif;
+}
+
+.form {
+  width: 50%;
+  background: #437f97;
+  padding: 4.2rem;
+  border-radius: 0.9rem;
+}
+
+.form input {
+  padding: 1.6rem;
+  width: 100%;
+  border-radius: 0.9rem;
+  border: none;
+  margin-bottom: 1.2rem;
+  font-size: 1.6rem;
+  background-color: #c9daea;
+}
+
+
+.form label {
+  font-size: 1.8rem;
+  color: #ffffff;
+}
