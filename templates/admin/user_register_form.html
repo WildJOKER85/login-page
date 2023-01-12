@@ -1,0 +1,13 @@
+{% from "admin/_formhelpers.html" import render_field %}
+<form action="" method=post>
+  <dl>
+    {{ render_field(form.firstname) }}
+    {{ render_field(form.lastname) }}
+    {{ render_field(form.username) }}
+    {{ render_field(form.email) }}
+    {{ render_field(form.phone) }}
+    {{ render_field(form.password) }}
+    {{ render_field(form.password_confirm) }}
+  </dl>
+  <p><input type=submit value=Register>
+</form>
