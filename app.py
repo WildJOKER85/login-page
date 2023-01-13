@@ -1,8 +1,9 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, url_for, redirect
 from flask_sqlalchemy import SQLAlchemy
-from flask_security import UserMixin, RoleMixin
+from flask_security import UserMixin, RoleMixin, auth_required, current_user
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, validators, EmailField
+from werkzeug.security import generate_password_hash
 
 from config import Config
 from constants import ErrorMessages as em, any_of_in_password
@@ -21,6 +22,14 @@ class User(db.Model, UserMixin):
     password = db.Column(db.String(255), nullable=False)
     email = db.Column(db.String(100), nullable=False)
     phone = db.Column(db.String(100), nullable=False)
+
+    def __init__(self, firstname, lastname, username, password, email, phone):
+        self.firstname = firstname
+        self.lastname = lastname
+        self.username = username
+        self.password = password
+        self.email = email
+        self.phone = phone
 
 
 class UserRoles(db.Model):
@@ -62,14 +71,37 @@ class RegisterForm(FlaskForm):
 def admin():
     form = LoginForm()
     if request.method == 'POST':
-        return 'Hello'
+        data = form.data
+        username = data['username']
+        user = db.session.execute(db.select(User).filter_by(username=username)).scalar_one()
+        if user:
+            current_user = user
+        return redirect(url_for('dashboard', username=current_user.username))
     return render_template('admin/admin_login_form.html', form=form)
 
 
 @app.route('/admin/register', methods=['GET', 'POST'])
 def admin_register():
     form = RegisterForm()
+    if request.method == 'POST':
+        data = request.form
+        user = User(firstname=data['firstname'],
+                    lastname=data['lastname'],
+                    username=data['username'],
+                    password=generate_password_hash(data['password']),
+                    email=data['email'],
+                    phone=data['phone'])
+        db.session.add(user)
+        db.session.commit()
+        return redirect(url_for('dashboard'))
     return render_template('admin/user_register_form.html', form=form)
+
+
+@app.route('/admin/dashboard')
+@app.route('/admin/dashboard/<username>')
+# @auth_required()
+def dashboard(username):
+    return render_template('admin/admin_dashboard.html')
 
 
 if __name__ == '__main__':
