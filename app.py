@@ -88,19 +88,19 @@ class LoginForm(FlaskForm):
 
 
 class RegisterForm(FlaskForm):
-    firstname = StringField('Firstname', [validators.DataRequired(message=em.firstname_required)])
-    lastname = StringField('Lastname', [validators.DataRequired(message=em.lastname_required)])
+    firstname = StringField('First Name', [validators.DataRequired(message=em.firstname_required)])
+    lastname = StringField('Last Name', [validators.DataRequired(message=em.lastname_required)])
     username = StringField('Username',
                            [validators.DataRequired(message=em.username_required), validators.Length(min=4, max=100)])
     email = EmailField('Email',
                        [validators.DataRequired(message=em.email_required), validators.Length(min=4, max=100)])
-    phone = StringField('Phone', [validators.DataRequired(message=em.phone_required)])
+    phone = StringField('Phone Number', [validators.DataRequired(message=em.phone_required)])
     password = PasswordField('Enter Password', [validators.DataRequired(message=em.password_required),
                                                 validators.Length(min=6, max=20),
                                                 validators.AnyOf(values=any_of_in_password,
                                                                  message="The password must have at least one character '!', '@', '#', '$', '%', '&', '*', '.'"),
                                                 validators.EqualTo('password_confirm', message=em.password_match)])
-    password_confirm = PasswordField('Re-enter password')
+    password_confirm = PasswordField('Confirm Password')
 
 
 @login_manager.user_loader
@@ -117,16 +117,16 @@ def admin():
         username = data['username']
         user = User.query.filter_by(username=username).first()
         if user:
-            if data['username'] == user.username and data['password'] == user.password:
+            if data['username'] == user.username and generate_hash(data['password']) == user.password:
                 login_user(user)
                 return redirect(url_for('admin_dashboard', username=user.username))
             else:
                 error_message = 'Wrong password'
-                return render_template('admin/admin_login_form.html', form=form, error=error_message)
+                return render_template('admin/loginform/index.html', form=form, error=error_message)
         else:
             error_message = 'Wrong username'
-            return render_template('admin/admin_login_form.html', form=form, error=error_message)
-    return render_template('admin/admin_login_form.html', form=form)
+            return render_template('admin/loginform/index.html', form=form, error=error_message)
+    return render_template('admin/loginform/index.html', form=form)
 
 
 @app.route('/admin/logout')
@@ -140,11 +140,13 @@ def logout():
 @login_required
 def admin_dashboard(username):
     users = User.query.all()
-    return render_template('admin/admin_dashboard.html', username=username, users=users)
+    form = RegisterForm()
+
+    return render_template('admin/dashboard/index.html', username=username, users=users, form=form)
 
 
-@app.route('/admin/dashboard/delete/<user_id>')
-@login_required
+@app.route('/admin/dashboard_css/delete/<user_id>')
+# @login_required
 def admin_delete_user(user_id):
     user = User.query.filter_by(id=user_id)
     db.session.delete(user)
@@ -153,7 +155,7 @@ def admin_delete_user(user_id):
 
 
 @app.route('/admin/daashboard/edit/<user_id>')
-@login_required
+# @login_required
 def admin_edit_user(user_id):
     user = User.query.filter_by(id=user_id)
     data = request.form  # TODO chack from form data can not be empty
@@ -166,22 +168,26 @@ def admin_edit_user(user_id):
     return redirect(url_for('admin_dashboard'))
 
 
-@app.route('/admin/register', methods=['GET', 'POST'])
+@app.route('/admin/register', methods=['POST'])
 @login_required
 def admin_register():
     form = RegisterForm()
     if request.method == 'POST':
         data = request.form
+        # if form.validate_on_submit():
         user = User(firstname=data['firstname'],
                     lastname=data['lastname'],
                     username=data['username'],
                     password=generate_hash(data['password']),
                     email=data['email'],
                     phone=data['phone'])
+
         db.session.add(user)
         db.session.commit()
-        return redirect(url_for('admin'))
-    return render_template('admin/user_register_form.html', form=form)
+    username = current_user.username
+    return redirect(url_for('admin_dashboard', username=username))
+
+    # return render_template('admin/user_register_form.html', form=form)
 
 
 @app.route('/')
@@ -208,7 +214,7 @@ def login():
     return render_template('login_form.html', form=form)
 
 
-@app.route('/dashboard/<username>')
+@app.route('/dashboard_css/<username>')
 @login_required
 def dashboard(username):
     return f'<h1>Dashboard {username}</h1>'

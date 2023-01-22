@@ -5,16 +5,17 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="../../../static/admin/dashboard_css/style.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="media.css">
+  <link rel="stylesheet" href="../../../static/admin/dashboard_css/media.css">
   <title>Dashboard</title>
 </head>
 
 <body>
-  <form class="form">
+  <form class="form" action="{{ url_for('admin_register') }}" method=post>
+    {{ form.csrf_token }}
     <div class="form-header">
       <h3>Add user</h3>
       <div class="close-icon-div">
@@ -22,36 +23,55 @@
       </div>
     </div>
     <div class="form-cont half">
-      <label for="firstname">First Name</label>
-      <input name="firstname" type="text" placeholder="First Name" required />
+      {{ form.firstname.label }}
+      {{ form.firstname(placeholder="First Name") }}
+<!--      <label for="firstname">First Name</label>-->
+<!--      <input name="firstname" type="text" placeholder="First Name" required />-->
     </div>
     <div class="form-cont half">
-      <label for="lastname">Last Name</label>
-      <input name="lastname" type="text" placeholder="Last Name" required />
+          {{ form.lastname.label }}
+          {{ form.lastname(placeholder="Last Name") }}
+<!--      <label for="lastname">Last Name</label>-->
+<!--      <input name="lastname" type="text" placeholder="Last Name" required />-->
     </div>
     <div class="form-cont full">
-      <label for="email">Email</label>
-      <input name="email" type="email" placeholder="Email" required />
+          {{ form.email.label }}
+          {{ form.email(placeholder="Email") }}
+          {% if form.email.errors %}
+          <ul class=errors>
+            {% for error in form.email.errors %}
+          <li>{{ error }}</li>
+          {% endfor %}
+          {% endif %}
+          </ul>
+<!--      <label for="email">Email</label>-->
+<!--      <input name="email" type="email" placeholder="Email" required />-->
     </div>
     <div class="form-cont half">
-      <label for="username">Username</label>
-      <input name="username" type="text" placeholder="Username" required />
+      {{ form.username.label }}
+      {{ form.username(placeholder="Username") }}
+<!--      <label for="username">Username</label>-->
+<!--      <input name="username" type="text" placeholder="Username" required />-->
     </div>
     <div class="form-cont half">
-      <label for="phone">Phone Number</label>
+      {{ form.phone.label }}
+<!--      <label for="phone">Phone Number</label>-->
       <div class="phone-cont">
         <div class="flag-cont">
-          <img src="am.svg" alt="" class="flag-icon">
+          <img src="../../../static/admin/dashboard_images/am.svg" alt="" class="flag-icon">
           <p class="num">+374</p>
         </div>
-        <input name="phone" type="tel" placeholder="Phone Number" required />
+          {{ form.phone(placeholder="Phone") }}
+<!--        <input name="phone" type="tel" placeholder="Phone Number" required />-->
       </div>
 
     </div>
     <div class="form-cont half passwd">
-      <label for="password">Password</label>
+<!--      <label for="password">Password</label>-->
+      {{ form.password.label }}
       <div class="passwd-child">
-        <input id="password" name="password" type="password" placeholder="Password" required />
+        {{ form.password(placeholder="Password") }}
+<!--        <input id="password" name="password" type="password" placeholder="Password" required />-->
         <div class="eye-cont">
           <ion-icon class="close-eye" name="eye-off-outline"></ion-icon>
           <ion-icon class="eye none" name="eye-outline"></ion-icon>
@@ -62,9 +82,12 @@
 
     </div>
     <div class="form-cont half passwd">
-      <label for="confirm-password">Confirm Password</label>
+            {{ form.password_confirm.label }}
+
+<!--      <label for="confirm-password">Confirm Password</label>-->
       <div class="passwd-child">
-        <input id="confirm-password" name="confirm-password" type="password" placeholder="Confirm Password" required />
+            {{ form.password_confirm(placeholder="Confirm Password") }}
+<!--        <input id="confirm-password" name="confirm-password" type="password" placeholder="Confirm Password" required />-->
         <div class="eye-cont">
           <ion-icon class="close-eye2" name="eye-off-outline"></ion-icon>
           <ion-icon class="eye2 none" name="eye-outline"></ion-icon>
@@ -73,14 +96,15 @@
     </div>
     <div class="for-form-buttons">
       <button type="button" class="form-cancel">Cancel</button>
-      <button type="button" class="form-btn">Submit</button>
+<!--      <p><input class="form-btn" type=submit value=Register></p>-->
+      <button type=submit class="form-btn">Submit</button>
     </div>
 
   </form>
   <main class="main-container">
     <section class="left-container">
       <div class="img-box">
-        <img src="white_logo.png" alt="goya-logo" class="logo-icon">
+        <img src="../../../static/admin/dashboard_images/white_logo.png" alt="goya-logo" class="logo-icon">
       </div>
       <div class="dropdown">
         <div class="drop-icons">
@@ -111,8 +135,12 @@
             <div class="item">Email address</div>
             <div class="item">Phone</div>
           </div>
-          <div id="tableA">
-          </div>
+          {% for user in users %}
+            <h1> {{ user.username }} </h1>
+            {% endfor %}
+<!--          <div id="tableA">-->
+
+<!--          </div>-->
         </div>
         <div id="menthors-container" class="none">
           <header class="secondary-header">
@@ -151,7 +179,7 @@
 
     </section>
   </main>
-  <script src="app.js"></script>
+  <script src="../../../static/admin/dashboard_js/app.js"></script>
   <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
   <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
 </body>

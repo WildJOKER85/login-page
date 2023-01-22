@@ -6,4 +6,4 @@ def generate_hash(st):
 
 
 if __name__ == '__main__':
-    print(generate_hash('123456'))
+    print(generate_hash('1234567'))
