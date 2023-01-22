@@ -7,12 +7,13 @@ let students_container = document.getElementById("students-container")
 let person_count = 0
 let main_arr = []
 let x = admins_container
+let nav = document.querySelector(".nav")
 menthors.onclick = () => turn(menthors_container)
 admins.onclick = () => turn(admins_container)
 students.onclick = () => turn(students_container)
 function turn(y) {
 
-  if (x != y && !form.classList[1] && nav.style.opacity == 1) {
+  if (x != y && !form.classList[1] && nav.style.opacity !== -5) {
     x.classList.add("none")
     y.classList.remove("none")
     x = y
@@ -292,7 +293,7 @@ function eyes(x, y, z, o) {
 
 let menu = document.querySelector(".menu")
 let nonmenu = document.querySelector(".nonmenu")
-let nav = document.querySelector(".nav")
+
 menu.onclick = () => {
   nav.style.opacity = 1
   nonmenu.style.display = "block"
