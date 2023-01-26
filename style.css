@@ -1,0 +1,141 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+html {
+    font-size: 10px;
+}
+
+body {
+    display: flex;
+    justify-content: center;
+    font-family: 'Noto Sans', sans-serif;
+    line-height: 1.5;
+}
+
+.container {
+    width: 90%;
+    height: 100vh;
+}
+
+.nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 3rem;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.nav a:link {
+    font-size: 1.8rem;
+    text-decoration: none;
+    font-weight: 700;
+}
+
+.a-link {
+    display: flex;
+    gap: 25px;
+}
+
+.btn {
+    width: 150px;
+    height: 50px;
+    font-size: 2.0rem;
+    color: #fff;
+    background-color: #2A2D34;
+    cursor: pointer;
+    border-radius: 10px;
+    border: none;
+    margin-right: 5rem;
+}
+
+.form {
+    display: flex;
+    /* justify-content: space-between; */
+    margin-top: 8rem;
+}
+
+.article-block {
+    font-weight: 400;
+    width: 40%;
+}
+
+.text {
+    font-size: 3.8rem;
+}
+
+.first-line {
+    color: #9DCFBF;
+}
+
+.second-line {
+    color: #6EC7AB;
+}
+
+.third-line {
+    color: #10C98F;
+}
+
+.lorem-text {
+    font-size: 1.8rem;
+    margin-top: 2rem;
+    color: #5F5B5B;
+}
+
+.students-icons {
+    display: flex;
+    gap: 2rem;
+    margin-left: 12rem;
+    /* margin-bottom: 20rem; */
+    align-items: flex-start;
+    position: relative;
+}
+
+.students-icons img {
+    width: 300px;
+    background-position: center;
+    border-radius: 10px;
+}
+
+.first-student-icon {
+    display: inline-block;
+    align-self: flex-end;
+}
+
+.happy-students-icon {
+    display: flex;
+    align-self: flex-start;
+}
+
+.courses {
+    width: 220px;
+    height: 80px;
+    background-color: #2A2D34;
+    position: absolute;
+    border-radius: 10px;
+    color: #fff;
+    font-size: 1.6rem;
+    z-index: 1;
+    left: 40%;
+    top: 60%;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    padding: 1.2rem 1.5rem;
+}
+
+.check-icon {
+    width: 2rem;
+    height: 2rem;
+    --ionicon-stroke-width: 64px;
+}
+
+.courses p {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    line-height: 2.1;
+}
