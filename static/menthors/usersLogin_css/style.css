@@ -13,6 +13,7 @@ body {
     justify-content: center;
     font-family: 'Noto Sans', sans-serif;
     line-height: 1.5;
+    z-index: -3;
 }
 
 .container {
@@ -29,32 +30,45 @@ body {
     margin-right: auto;
 }
 
-.nav a:link {
+.nav a {
     font-size: 1.8rem;
     text-decoration: none;
-    font-weight: 700;
+    font-weight: 500;
+    color: black;
+    transition: all 0.3s;
+}
+
+.nav a:hover {
+    font-size: 2.2rem;
 }
 
 .a-link {
     display: flex;
-    gap: 25px;
+    gap: 2.5rem;
+    cursor: pointer;
+    align-items: center;
+}
+
+hr {
+    margin-top: 2.4rem;
+    border: 1px solid rgba(0, 0, 0, 0.1);
 }
 
 .btn {
-    width: 150px;
-    height: 50px;
-    font-size: 2.0rem;
+    padding: 1.2rem 4.6rem;
+    font-size: 1.8rem;
     color: #fff;
-    background-color: #2A2D34;
+    background-color: #10C98F;
     cursor: pointer;
     border-radius: 10px;
     border: none;
     margin-right: 5rem;
+    font-weight: 700;
 }
 
 .form {
     display: flex;
-    /* justify-content: space-between; */
+    justify-content: space-between;
     margin-top: 8rem;
 }
 
@@ -88,7 +102,7 @@ body {
 .students-icons {
     display: flex;
     gap: 2rem;
-    margin-left: 12rem;
+
     /* margin-bottom: 20rem; */
     align-items: flex-start;
     position: relative;
@@ -111,8 +125,7 @@ body {
 }
 
 .courses {
-    width: 220px;
-    height: 80px;
+    width: 40%;
     background-color: #2A2D34;
     position: absolute;
     border-radius: 10px;
@@ -138,4 +151,118 @@ body {
     align-items: center;
     gap: 0.4rem;
     line-height: 2.1;
+}
+
+.passwd-child {
+    display: grid;
+    grid-template-columns: 1fr 12%;
+    width: 100%;
+    margin-top: 0.8rem;
+    border-radius: 0.5rem;
+    background-color: #fff;
+    border: 1px solid rgba(86, 115, 127, 0.7);
+    box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.05);
+    font-size: 1.6rem;
+}
+
+.eye-cont {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.label {
+    font-size: 2rem;
+    color: #162F39;
+}
+
+.none {
+    display: none;
+}
+
+.form2 {
+    display: flex;
+    flex-direction: column;
+    gap: 2.4rem;
+    width: 40%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 15;
+    height: max-content;
+    padding: 2.4rem 3.2rem 3.2rem 3.2rem;
+    background-color: #f3f3f3;
+    border-radius: 0.5rem;
+    opacity: 1;
+    transition: all 0.5s;
+    border: 1px solid rgb(122, 122, 122);
+}
+
+.form2 input {
+    width: 100%;
+    margin-top: 0.8rem;
+    border-radius: 0.5rem;
+    padding: 1.2rem;
+    border: 1px solid rgba(86, 115, 127, 0.7);
+    box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.05);
+    font-size: 1.6rem;
+}
+
+.passwd-child input {
+    width: 100%;
+    margin-top: 0;
+    border-radius: 0.5rem;
+    padding: 1.2rem;
+    border: none;
+}
+
+.delete-icon {
+    width: 3rem;
+    height: 3rem;
+    --ionicon-stroke-width: 64px;
+    color: #000;
+}
+
+.close-div {
+    display: flex;
+    justify-content: flex-end;
+    margin: 5px;
+}
+
+.btn-sub-cansel {
+    display: flex;
+    justify-content: flex-end;
+    gap: 3rem;
+}
+
+.button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.6rem;
+    cursor: pointer;
+    border: none;
+    border-radius: 0.6rem;
+    font-weight: 400;
+    letter-spacing: 0.7px;
+    display: inline-block;
+    padding: 1.2rem 2.4rem;
+    background-color: #10C98F;
+    color: #fff;
+}
+
+.btn-cancel {
+    background-color: #fff;
+    border: 1px solid rgb(122, 122, 122);
+    color: #000;
+}
+
+.opacity {
+    opacity: 0;
+    z-index: -8;
+}
+
+.blur {
+    filter: blur(0.7rem);
 }
